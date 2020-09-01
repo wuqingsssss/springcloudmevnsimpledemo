@@ -1,0 +1,69 @@
+version: '2'        # 表示该docker-compose.yml文件使用的是Version 2 file format
+services:           # Version 2 file format的固定写法，为project定义服务。
+  demo-discovery-eureka:                                  # 指定服务名称
+    image: itmuch/demo-discovery-eureka:0.0.1-SNAPSHOT    # 指定服务所使用的镜像
+    ports:                                                        # 暴露端口信息
+      - "8761:8761"
+  demo-config-server:
+    image: itmuch/demo-config-server:0.0.1-SNAPSHOT
+    depends_on:
+      - demo-discovery-eureka
+    ports:                                                        # 暴露端口信息
+      - "8880:8880"
+#    links:
+#      - demo-discovery-eureka:discovery
+    restart: always
+#  demo-provider-user:
+#    image: itmuch/demo-provider-user:0.0.1-SNAPSHOT
+#    depends_on:
+#      - demo-config-server
+##    ports:                                                        # 暴露端口信息
+##      - "8001:8001"
+#    links:          # 链接到microservice-discovery-eureka，这边使用的是SERVICE:ALIAS的形式
+#      - demo-discovery-eureka:discovery
+#  demo-consumer-movie:
+#    image: itmuch/demo-consumer-movie:0.0.1-SNAPSHOT
+#    depends_on:
+#      - demo-config-server
+#    ports:                                                        # 暴露端口信息
+#      - "8010:8010"
+#    links:
+#      - demo-discovery-eureka:discovery
+#  demo-consumer2-movie:
+  microservice-foo:
+    image: itmuch/demo-consumer2-movie:0.0.1-SNAPSHOT
+    depends_on:
+      - "demo-config-server"
+    ports:                                                        # 暴露端口信息
+      - "8012:8012"
+#    links:
+#      - demo-discovery-eureka:discovery
+#      - demo-config-server:discovery
+#  demo-file-upload:
+#    image: itmuch/demo-file-upload:0.0.1-SNAPSHOT
+#    #    ports:                                                        # 暴露端口信息
+#    #      - "8050:8050"
+#    links:
+#      - demo-discovery-eureka:discovery
+#  demo-gateway-zuul:
+#    image: itmuch/demo-gateway-zuul:0.0.1-SNAPSHOT
+#    depends_on:
+#      - demo-config-server
+#    ports:                                                        # 暴露端口信息
+#      - "8040:8040"
+#    links:
+#      - demo-discovery-eureka:discovery
+#  demo-hystrix-dashboard:
+#    image: itmuch/demo-hystrix-dashboard:0.0.1-SNAPSHOT
+#    ports:
+#      - "8030:8030"
+#    links:
+#      - demo-discovery-eureka:discovery
+#  demo-hystrix-turbine:
+#    image: itmuch/demo-hystrix-turbine:0.0.1-SNAPSHOT
+#    depends_on:
+#      - demo-config-server
+#    ports:
+#      - "8031:8031"
+#    links:
+#      - demo-discovery-eureka:discovery

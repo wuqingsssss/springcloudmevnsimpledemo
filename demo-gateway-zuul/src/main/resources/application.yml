@@ -1,0 +1,27 @@
+server:
+  port: 8040
+spring:
+  application:
+    name: demo-gateway-zuul
+eureka:
+  client:
+    service-url:
+      defaultZone: http://discovery:8761/eureka/
+  instance:
+    prefer-ip-address: true
+zuul:
+#  ignored-services: '*'   # 使用'*'可忽略所有微服务
+  routes:
+    demo-consumer-movie: /user/**
+    demo-consumer2-movie: /movie/**
+    microservice-foo: /foo/**
+    demo-file-upload: /upload/**
+# 上传大文件得将超时时间设置长一些，否则会报超时异常。以下几行超时设置来自http://cloud.spring.io/spring-cloud-static/Camden.SR3/#_uploading_files_through_zuul
+demo-file-upload:
+  hystrix.command.default.execution.isolation.thread.timeoutInMilliseconds: 60000
+  ribbon:
+    ConnectTimeout: 3000
+    ReadTimeout: 60000
+management:
+  security:
+    enabled: false

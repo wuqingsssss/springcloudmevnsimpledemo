@@ -1,0 +1,9 @@
+server:
+  port: 8011
+spring:
+  application:
+    name: demo-consumer-movie
+demo-provider-user:
+  ribbon:
+    listOfServers: localhost:8000,localhost:8001
+    NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RandomRule

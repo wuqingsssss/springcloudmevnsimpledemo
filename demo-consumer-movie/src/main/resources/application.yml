@@ -1,0 +1,17 @@
+server:
+  port: 8010
+spring:
+  application:
+    name: demo-consumer-movie  # 服务注册到eureka的名字
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://discovery:8761/eureka/
+  instance:
+    prefer-ip-address: true
+demo-provider-user:
+  ribbon: # 通过属性设置ribbon的某个服务的配置
+    NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RandomRule
+logging:
+  level:
+    com.itmuch.cloud.study.user.feign.UserFeignClient: DEBUG # 将Feign接口的日志级别设置成DEBUG，因为Feign的Logger.Level只对DEBUG作出响应。

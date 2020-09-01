@@ -1,0 +1,23 @@
+spring:
+  application:
+    name: microservice-foo    # 对应config server所获取的配置文件的{application}
+  cloud:
+    config:
+      profile: dev            # profile对应config server所获取的配置文件中的{profile}
+      label: master           # 指定Git仓库的分支，对应config server所获取的配置文件的{label}
+      uri: http://discovery:8880/
+#      discovery:
+#        enabled: true                                  # 表示使用服务发现组件中的Config Server，而不自己指定Config Server的uri，默认false
+#        service-id: "demo-config-server"                 # 指定Config Server在服务发现中的serviceId，默认是configserver
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: "http://discovery:8761/eureka/"
+    instance:
+      prefer-ip-address: true
+demo-provider-user:
+  ribbon: # 通过属性设置ribbon的某个服务的配置
+    NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RandomRule
+logging:
+  level:
+    com.itmuch.cloud.study.user.feign.UserFeignClient: DEBUG # 将Feign接口的日志级别设置成DEBUG，因为Feign的Logger.Level只对DEBUG作出响应。
