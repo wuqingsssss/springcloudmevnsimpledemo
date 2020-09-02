@@ -31,7 +31,8 @@ services:           # Version 2 file format的固定写法，为project定义服
 #      - demo-discovery-eureka:discovery
 #  demo-consumer2-movie:
   microservice-foo:
-    image: itmuch/demo-consumer2-movie:0.0.1-SNAPSHOT
+#    image: itmuch/demo-consumer2-movie:0.0.1-SNAPSHOT #需要运行1，2，4 或者 3,4
+    build: ./demo-consumer2-movie #需要运行 1 ,目录配置为项目Dockerfile所在的目录
     depends_on:
       - "demo-config-server"
     ports:                                                        # 暴露端口信息
